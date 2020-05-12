@@ -1,0 +1,91 @@
+#include <algorithm>
+#include <iostream>
+#include <map>
+#include <set>
+#include <string.h>
+#include <vector>
+using namespace std;
+
+typedef long long lll;
+lll arr[100001];
+lll segt[400001];
+vector<pair<pair<lll, lll>, lll>> vecc;
+lll search(lll x) {
+  lll left = 0, rear = vecc.size();
+  while (left <= rear) {
+    lll midd = left + (rear - left) / 2;
+    pair<pair<lll, lll>, lll> pp;
+    pp = vecc[midd];
+    if ((pp.first).first <= x && (pp.first).second >= x)
+      return pp.second;
+    if (pp.first.second < x)
+      left = midd + 1;
+    else
+      rear = midd - 1;
+  }
+  return -1;
+}
+
+int main() {
+  std::ios::sync_with_stdio(false);
+  set<lll, lll> st;
+  lll tttt;
+  cin >> tttt;
+  while (tttt--) {
+    lll ttt;
+    lll noo;
+    lll cp[100001];
+    cin >> noo;
+    cin >> ttt;
+    lll backk[100001] = {0};
+    lll front[100001] = {0};
+    lll ansss[100001];
+    map<lll, lll> mpp;
+    set<lll> st;
+    for (lll i = 0; i < noo; i++) {
+      lll num;
+      cin >> num;
+      arr[i] = num;
+      mpp[arr[i]] = 0;
+      st.insert(arr[i]);
+    }
+    for (lll i = 0; i < noo; i++)
+      for (lll j = i - 1; j >= 0 && arr[j] < arr[i]; j -= backk[j] + 1)
+        backk[i] += backk[j] + 1;
+    for (lll i = noo - 1; i >= 0; i--)
+      for (lll j = i + 1; j < noo && arr[j] <= arr[i]; j += front[j] + 1)
+        front[i] += front[j] + 1;
+
+    for (lll i = 0; i < noo; i++)
+      ansss[i] = (backk[i] + 1) * (front[i] + 1);
+
+    for (lll i = 0; i < noo; i++)
+      mpp[arr[i]] += ansss[i];
+    lll cumsum = 0;
+    set<lll>::iterator itti;
+    for (itti = (st.end()); itti != (st.begin());) {
+      if (itti == st.end())
+        itti--;
+      lll op = cumsum;
+      cumsum += mpp[*itti];
+      vecc.push_back(
+          make_pair(make_pair(op + 1, cumsum), *itti)); // cout<<*itti<<endl;
+      itti--;
+      if (itti == st.begin()) {
+
+        op = cumsum;
+        cumsum += mpp[*itti];
+        vecc.push_back(
+            make_pair(make_pair(op + 1, cumsum), *itti)); // cout<<*itti<<endl;
+      }
+    }
+    while (ttt--) {
+      lll qu;
+      cin >> qu;
+      lll ans = search(qu);
+      cout << ans << endl;
+    }
+    vecc.clear();
+  }
+  return 0;
+}

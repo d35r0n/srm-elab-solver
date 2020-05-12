@@ -1,0 +1,20 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+int main()
+{
+    int i, s, n;
+    char p[10];
+    for (i = 0; i < 10; i++) {
+        cin >> p >> n;
+        if (strcmp(p, "Ronaldo") == 0)
+            s++;
+        if (s > 1) {
+            cout << "Ronaldo appears more than once";
+            exit(0);
+        } else if (i == 9) {
+            cout << ((s == 0) ? "Ronaldo not appears" : "Ronaldo appears once");
+        }
+    }
+    return 0;
+}

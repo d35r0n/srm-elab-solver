@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+vector<pair<int, int>> adj[105];
+bool vis[105];
+int k;
+
+bool dfs(int s, int l) {
+  // cout<<s<<" "<<l<<endl;
+  vis[s] = true;
+  if (l >= k) {
+    return true;
+  }
+  for (auto x : adj[s]) {
+    if (vis[x.first] == false && dfs(x.first, l + x.second)) {
+      return true;
+    }
+  }
+  vis[s] = false;
+  return false;
+}
+
+int main() {
+  int t;
+  cin >> t;
+  while (t--) {
+    memset(vis, false, sizeof(vis));
+    for (int i = 0; i < 105; i++) {
+      adj[i].clear();
+    }
+
+    int v, e;
+
+    cin >> v >> e >> k;
+
+    for (int i = 0; i < e; i++) {
+
+      int e1, e2, cost;
+
+      cin >> e1 >> e2 >> cost;
+      // cout<<e1<<" "<<e2<<" "<<cost<<endl;
+      adj[e1].push_back({e2, cost});
+      adj[e2].push_back({e1, cost});
+    }
+
+    bool f = false;
+    vis[0] = true;
+
+    for (auto x : adj[0]) {
+      // cout<<"x="<<x<<endl;
+      if (dfs(x.first, x.second)) {
+        cout << "1" << endl;
+        f = true;
+        break;
+      }
+    }
+
+    if (!f) {
+      cout << "0" << endl;
+    }
+  }
+
+  return 0;
+}

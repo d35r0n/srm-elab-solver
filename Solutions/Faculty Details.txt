@@ -1,0 +1,27 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+int main()
+{
+    int n, a[100], i, j, x;
+    char b[100][100], t[100];
+    cin >> n;
+    for (i = 0; i < n; i++)
+        cin >> b[i] >> a[i];
+    for (i = 0; i < n - 1; i++) {
+        for (j = 0; j < n - i - 1; j++) {
+            if (a[j + 1] < a[j]) {
+                x = a[j];
+                a[j] = a[j + 1];
+                a[j + 1] = x;
+                strcpy(t, b[j]);
+                strcpy(b[j], b[j + 1]);
+                strcpy(b[j + 1], t);
+            }
+        }
+    }
+    cout << "After Sorting\nName ID\n";
+    for (i = 0; i < n; i++)
+        cout << b[i] << " " << a[i] << "\n";
+    return 0;
+}

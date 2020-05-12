@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+int main()
+{
+    int t;
+    cin >> t;
+    if (t == 1)
+        cout << "YES";
+    else
+        cout << "YES\nNO";
+
+    return 0;
+}

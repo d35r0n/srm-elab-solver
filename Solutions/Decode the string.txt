@@ -1,0 +1,58 @@
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+string fun(string str)
+{
+    // cout<<str<<endl;
+    int n = str.size();
+    stack<char> st;
+    string ans = "";
+    int i = 0;
+    while (isalpha(str[i]) and i < n) {
+        ans += str[i];
+        i++;
+    }
+    if (i == n)
+        return ans;
+    int x = 0;
+    while (isdigit(str[i])) {
+        x = x * 10 + str[i] - '0';
+        i++;
+    }
+    st.push(str[i]);
+    string s = "";
+    i++;
+    while (!st.empty() and i < n) {
+        if (str[i] == '[') {
+            st.push(str[i]);
+        } else if (str[i] == ']') {
+            st.pop();
+        }
+        if (!st.empty())
+            s += str[i];
+        i++;
+    }
+    s = fun(s);
+    while (x--)
+        ans.append(s);
+    // i++;
+    if (i < n) {
+        string sub = str.substr(i);
+        ans.append(fun(sub));
+    }
+    return ans;
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--) {
+        string str;
+        cin >> str;
+        cout << fun(str) << endl;
+    }
+    return 0;
+}

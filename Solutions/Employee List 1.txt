@@ -1,0 +1,29 @@
+#include <iostream>
+#include <iterator>
+#include <map>
+#include <string>
+
+using namespace std;
+
+map<string, int, greater<string>> list;
+
+int main()
+{
+    int length;
+    string temp_s;
+    int temp_m;
+    cin >> length;
+    for (auto i = 0; i < length; i++) {
+        cin >> temp_s >> temp_m;
+        list.insert(make_pair(temp_s, temp_m));
+    }
+
+    cout << "After sorting" << endl;
+    cout << "Name"
+         << " "
+         << "ID" << endl;
+    for (auto i = list.rbegin(); i != list.rend(); i++) {
+        cout << i->first << " " << i->second;
+        cout << endl;
+    }
+}

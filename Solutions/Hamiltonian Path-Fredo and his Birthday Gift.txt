@@ -1,0 +1,75 @@
+#include <bits/stdc++.h>
+using namespace std;
+int ct(int x)
+{
+    int cnt = 0;
+    while (x) {
+        x = x & (x - 1);
+        cnt++;
+    }
+    return cnt;
+}
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        int v[n][n];
+        memset(v, 0, sizeof(v));
+        for (int i = 0; i < m; ++i) {
+            int a, b;
+            cin >> a >> b;
+            --a, --b;
+            v[a][b] = v[b][a] = 1;
+        }
+        int dp[n][(1 << n)];
+        memset(dp, 0, sizeof(dp));
+        for (int i = 1; i < (1 << n); ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (i & (1 << j)) {
+                    int k = (i ^ (1 << j));
+                    if (k == 0) {
+                        dp[j][i] = j + 1;
+                        continue;
+                    }
+                    for (int p = 0; p < n; ++p) {
+                        if (p == j)
+                            continue;
+                        if (v[p][j] && (k & (1 << p)) && dp[p][k])
+                            dp[j][i] = max(dp[j][i], j + 1 + dp[p][k]);
+                    }
+                }
+            }
+        }
+        int res[n + 1][n + 1];
+        memset(res, 0, sizeof(res));
+        // cout<<dp[1][6]<<endl;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 1; j < (1 << n); ++j) {
+                if (dp[i][j]) {
+                    int b = ct(j);
+                    res[i][b] = b;
+                    //cout<<i+1<<" "<<b<<" "<<res[i][b]<<endl;
+                }
+            }
+        }
+        int xx[n];
+        for (int i = 0; i < n; ++i) {
+            for (int j = 1; j <= n; ++j)
+                if (res[i][j])
+                    xx[i] = j;
+        }
+        //for(int i=0;i<n;++i)cout<<xx[i]<<" ";
+        for (int i = 0; i < n; ++i)
+            cout << xx[i] - 1 << " ";
+        cout << endl;
+    }
+}

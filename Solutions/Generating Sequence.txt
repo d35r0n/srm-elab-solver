@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long long int t, g, n, i;
+    cin >> t;
+    while (t--) {
+        cin >> g >> n;
+        for (i = 1; i <= n - 1; i++) {
+            cout << g * 2 << " ";
+        }
+        cout << g * 3 << endl;
+    }
+
+    return 0;
+}

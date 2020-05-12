@@ -1,0 +1,30 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+class tech {
+public:
+    char name[200], place[100];
+    char no[20];
+} ob[10];
+
+int main()
+{
+    int n, flag = 0;
+    char abc[80];
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> ob[i].name >> ob[i].no >> ob[i].place;
+    }
+    cin >> abc;
+    for (int i = 0; i < n; i++) {
+        if (strcmp(abc, ob[i].name) == 0) {
+            cout << "Name Mobile Number City\n"
+                 << ob[i].name << " " << ob[i].no << " " << ob[i].place;
+            flag = 1;
+            break;
+        }
+    }
+    if (flag == 0)
+        cout << "The Entered Name is not in the Directory";
+    return 0;
+}

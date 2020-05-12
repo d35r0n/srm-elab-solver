@@ -1,0 +1,22 @@
+#include <algorithm>
+#include <iostream>
+#define ll long long
+using namespace std;
+int main()
+{
+    ll t;
+    cin >> t;
+    while (t--) {
+        ll n, i, k;
+        cin >> n >> k;
+        ll a[n];
+        for (i = 0; i < n; i++)
+            cin >> a[i];
+        ll maxx = *max_element(a, a + n);
+        if (maxx > k)
+            cout << maxx - k << endl;
+        else
+            cout << -1 << endl;
+    }
+    return 0;
+}

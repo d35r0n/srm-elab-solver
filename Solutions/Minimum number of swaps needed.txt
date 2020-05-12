@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+#include <stdio.h>
+int main() {
+  int a;
+  cin >> a;
+  for (int b = 1; b <= a; b++) {
+    int x, count = 0;
+    cin >> x;
+    int arr[x];
+    for (int aa = 0; aa < x; aa++) {
+      cin >> arr[aa];
+    }
+    for (int lp = 0; lp < x; lp++)
+      for (int lk = lp; lk < x; lk++) {
+        if (arr[lp] > arr[lk])
+          count++;
+      }
+    cout << count << endl;
+  }
+
+  return 0;
+}

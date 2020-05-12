@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+  int N;
+  int degree;
+  int sum = 0;
+
+  cin >> N;
+  int edges = N - 1;
+  for (int i = 0; i < N; i++) {
+    cin >> degree;
+    sum = sum + degree;
+  }
+  sum = sum / 2;
+
+  if (edges == sum) {
+    cout << "Yes";
+  } else {
+    cout << "No";
+  }
+}

@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+#define M 1000000007
+#define ll long long int
+#define ull long long int
+#define pb push_back
+using namespace std;
+int main()
+{
+    int t = 1;
+    while (t--) {
+        ull n, k;
+        cin >> n >> k;
+        ull a[n + 1];
+        for (int i = 0; i < n; i++)
+            cin >> a[i];
+        sort(a, a + n, greater<ull>());
+        ull ans = 0, j = 1;
+        ull st = 0;
+        ull z = n;
+        while (z > 0) {
+            for (ull i = st; i < min(st + k, n); i++) {
+                ans += a[i] * j;
+            }
+            st = min(st + k, n);
+            z = z - k;
+            j++;
+        }
+        cout << ans << "\n";
+    }
+}

@@ -1,0 +1,19 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int N;
+pair<int, int> A[1000];
+
+int main() {
+  scanf("%d", &N);
+  int a, b;
+  for (int i = 0; i < N; i++) {
+    scanf("%d%d", &a, &b);
+    A[i] = make_pair(a + b, i + 1);
+  }
+  sort(A, A + N);
+  for (int i = 0; i < N; i++)
+    printf("%d ", A[i].second);
+  printf("\n");
+  return 0;
+}

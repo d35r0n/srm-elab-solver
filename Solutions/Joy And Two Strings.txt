@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+#include <algorithm>
+#include <queue>
+#include <string.h>
+#include <unordered_map>
+#include <vector>
+
+int main() {
+  int t;
+  cin >> t;
+  while (t--) {
+    string s1;
+    string s2;
+    cin >> s1 >> s2;
+    unordered_map<char, bool> mapa;
+    for (int i = 0; i < s1.size(); i++) {
+      mapa[s1[i]] = true;
+    }
+    int m = 0;
+    for (int i = 0; i < s2.size(); i++) {
+      if (mapa.count(s2[i])) {
+        m = 1;
+        break;
+      }
+    }
+    if (m == 1) {
+      cout << "Yes" << endl;
+    } else {
+      cout << "No" << endl;
+    }
+  }
+}

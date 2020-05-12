@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+#include <bits/stdc++.h>
+class edge {
+public:
+  int weight;
+  int u;
+  int v;
+};
+bool cmp(edge e, edge e1) { return e.weight < e1.weight; };
+
+class dsu {
+  int n;
+  int *size;
+  int *id;
+
+public:
+  dsu(int n) {
+    size = new int[n + 1];
+    id = new int[n + 1];
+    for (int i = 1; i < n; i++) {
+      size[i] = 1;
+      id[i] = i;
+    }
+  }
+  int root(int u) {
+    if (id[u] == u)
+      return u;
+    id[u] = root(id[u]);
+    return id[u];
+  }
+  int find(int u, int v) {
+    int ru = root(u);
+    int rv = root(v);
+    return ru == rv;
+  }
+  void Union(int u, int v) {
+    int ru = root(u);
+    int rv = root(v);
+    if (size[ru] >= size[rv]) {
+      id[rv] = ru;
+      size[ru] += size[rv];
+
+    } else {
+      id[ru] = rv;
+      size[rv] += size[ru];
+    }
+  }
+};
+int main() {
+  int P = 1000000007;
+  int t;
+  cin >> t;
+  while (t--) {
+
+    int n, m;
+    cin >> n >> m;
+    edge e[m];
+    dsu d1(n);
+    for (int i = 0; i < m; i++) {
+      int u, v, wt;
+      cin >> u >> v >> wt;
+      e[i].u = u;
+      e[i].v = v;
+      e[i].weight = wt;
+    }
+    sort(e, e + m, cmp);
+    bool used[m];
+    long long int count = 0, k = 0, prod = 1;
+    while (/*(count!=n-1)*/ 1 && (k < m)) {
+      if (!(d1.find(e[k].u, e[k].v))) {
+        used[k] = true;
+
+        d1.Union(e[k].u, e[k].v);
+        // cout<<e[k].u<<e[k].v<<endl;
+        prod = ((prod % P) * (e[k].weight) % P) % P;
+        count++;
+      }
+      // cout<<e[k].u<<e[k].v<<e[k].weight<<endl;
+      k++;
+    }
+    cout << prod << endl;
+  }
+}

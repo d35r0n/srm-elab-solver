@@ -1,0 +1,16 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+  int i, n, k;
+  int c = 0;
+  string name;
+  for (i = 0; i < 10; i++) {
+    cin >> name >> k;
+    if (k <= 50) {
+      c++;
+    }
+  }
+  cout << "Number of the student got fail marks " << c;
+  return 0;
+}

@@ -1,0 +1,23 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long long int n, i, j, sum, cnt, num;
+    cin >> n;
+    bitset<2001> b[2001];
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            cin >> num;
+            b[i][j] = num;
+        }
+    }
+    sum = 0;
+    for (i = 0; i < n; i++) {
+        for (j = i + 1; j < n; j++) {
+            cnt = (b[i] & b[j]).count();
+            sum += ((cnt * (cnt - 1)) / 2);
+        }
+    }
+    cout << sum / 2 << "\n";
+    return 0;
+}

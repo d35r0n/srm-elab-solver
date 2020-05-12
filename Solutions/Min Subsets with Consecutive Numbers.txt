@@ -1,0 +1,35 @@
+// done
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+  int i, n, m, j, k, l, o, p;
+  scanf("%d", &n);
+  for (i = 0; i < n; i++) {
+    scanf("%d", &p);
+    int a[p];
+    for (j = 0; j < p; j++) {
+      scanf("%d", &a[j]);
+    }
+    int I, J, key;
+    for (I = 1; I < p; I++) {
+      key = a[I];
+      J = I - 1;
+      while (J >= 0 && a[J] > key) {
+        a[J + 1] = a[J];
+        J = J - 1;
+      }
+      a[J + 1] = key;
+    }
+    int T = 0;
+    for (j = 0; j < p - 1; j++) {
+      if (a[j] + 1 != a[j + 1]) {
+        T++;
+      }
+    }
+    T++;
+    printf("%d\n", T);
+  }
+  return 0;
+}

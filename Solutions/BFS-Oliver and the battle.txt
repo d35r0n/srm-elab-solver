@@ -1,0 +1,70 @@
+#include <bits/stdc++.h>
+#define pb push_back
+#define MOD 1000000007
+
+using namespace std;
+
+int grd[1001][1001];
+int troops;
+int visited[1001][1001];
+
+int bfs(int u, int v, int n, int m)
+{
+    //    cout<<" check "<<u<<" "<<v<<"\n";
+    if (u < 0 || v < 0 || u >= n || v >= m)
+        return 0;
+    if (visited[u][v] == 1)
+        return 0;
+    else {
+        visited[u][v] = 1;
+    }
+    if (grd[u][v] == 0)
+        return 0;
+    else if (grd[u][v] == 1) {
+        int kill = 1;
+        kill += bfs(u - 1, v, n, m);
+        kill += bfs(u, v - 1, n, m);
+        kill += bfs(u + 1, v - 1, n, m);
+        kill += bfs(u - 1, v - 1, n, m);
+        kill += bfs(u + 1, v, n, m);
+        kill += bfs(u, v + 1, n, m);
+        kill += bfs(u - 1, v + 1, n, m);
+        kill += bfs(u + 1, v + 1, n, m);
+        //    cout<<"u,v "<<u<<" "<<v<<"k "<<kill<<"\n";
+        return kill;
+    }
+}
+
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--) {
+        troops = 0;
+        int n, m;
+        cin >> n >> m;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                int tmp;
+                cin >> tmp;
+                grd[i][j] = tmp;
+                visited[i][j] = 0;
+            }
+        }
+        vector<int> kls;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                int kill = 0;
+                if (visited[i][j] != 1) {
+                    kill = bfs(i, j, n, m);
+                    kls.pb(kill);
+                    if (kill > 0)
+                        troops++;
+                }
+            }
+        }
+        sort(kls.begin(), kls.end());
+        cout << troops << " " << kls[kls.size() - 1] << "\n";
+    }
+    return 0;
+}

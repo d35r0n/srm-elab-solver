@@ -1,0 +1,34 @@
+#include <iostream>
+using namespace std;
+bool ispalindrome(string input) {
+  if (input == string(input.rbegin(), input.rend())) {
+    return true;
+  } else {
+    return false;
+  }
+}
+int counts(string s) {
+  int tot = 0;
+  string temp;
+  int n = s.length();
+  for (int i = 0; i < n; i++) {
+    for (int j = 1; j <= n - i; j++) {
+      temp = s.substr(i, j);
+      if (ispalindrome(temp)) {
+        tot += temp.length() * temp.length();
+      }
+    }
+  }
+  return tot;
+}
+int main() {
+  string s;
+  int t;
+  cin >> t;
+  while (t-- && t <= 100) {
+    cin >> s;
+    if (s.length() >= 1 && s.length() <= 1000)
+      cout << counts(s) << endl;
+  }
+  return 0;
+}

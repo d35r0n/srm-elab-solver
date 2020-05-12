@@ -1,0 +1,65 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+        vector<int> v[n + 1];
+        vector<pair<int, int>> v1;
+        for (int i = 1; i <= k; i++) {
+            int x1;
+            cin >> x1;
+            string R;
+            cin >> R;
+            int x2;
+            cin >> x2;
+            if (R == "=") {
+                //int start=x1;
+                v[x1].push_back(x2);
+                v[x2].push_back(x1);
+            } else {
+                v1.push_back(make_pair(x1, x2));
+            }
+        }
+        int flag = 0;
+        int value = 1;
+        int a[n + 1];
+        bool visited[n + 1];
+        memset(visited, false, sizeof(visited));
+        queue<int> q;
+        for (int i = 1; i <= n; i++) {
+            if (visited[i] == false) {
+                q.push(i);
+                while (!q.empty()) {
+                    k = q.front();
+                    q.pop();
+                    a[k] = value;
+                    for (int j = 0; j < v[k].size(); j++) {
+                        int nbr = v[k][j];
+                        if (visited[nbr] == false) {
+                            visited[nbr] = true;
+                            q.push(nbr);
+                        }
+                    }
+                }
+            }
+            value++;
+        }
+        for (int i = 0; i < v1.size(); i++) {
+            int p = v1[i].first;
+            int q = v1[i].second;
+            if (a[p] == a[q]) {
+                flag = 1;
+                break;
+            }
+        }
+        if (flag == 1)
+            cout << "NO" << endl;
+        else
+            cout << "YES" << endl;
+    }
+    return 0;
+}

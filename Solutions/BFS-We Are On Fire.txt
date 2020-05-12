@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+#define fastIO                  \
+    ios::sync_with_stdio(NULL); \
+    cin.tie(NULL);              \
+    cout.tie(NULL);
+#define ii pair<int, int>
+
+using namespace std;
+const int N = 1E3 + 7;
+const int dx[] = { -1, 0, 0, 1 };
+const int dy[] = { 0, -1, 1, 0 };
+
+deque<ii> Q;
+int a[N][N];
+int n, m, q, cnt = 0;
+
+int BFS(int sx, int sy)
+{
+    while (!Q.empty())
+        Q.pop_front();
+    Q.push_back(ii(sx, sy));
+    if (a[sx][sy] == 1)
+        a[sx][sy] = 0, cnt--;
+    else
+        return cnt;
+
+    while (!Q.empty()) {
+        ii tmp = Q.front();
+        Q.pop_front();
+
+        for (int i = 0; i < 4; ++i) {
+            int X = tmp.first + dx[i];
+            int Y = tmp.second + dy[i];
+
+            if (min(X, Y) >= 1 && X <= n && Y <= m)
+                if (a[X][Y] == 1) {
+                    Q.push_back(ii(X, Y));
+                    a[X][Y] = 0;
+                    --cnt;
+                }
+        }
+    }
+    return cnt;
+}
+int main()
+{
+    fastIO
+            cin
+        >> n >> m >> q;
+
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= m; ++j) {
+            cin >> a[i][j];
+            if (a[i][j] == 1)
+                cnt++;
+        }
+
+    while (q > 0) {
+        int u, v;
+        cin >> u >> v;
+        cout << BFS(u, v) << "\n";
+        q--;
+    }
+}

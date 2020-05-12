@@ -1,0 +1,54 @@
+#include <iostream>
+
+using namespace std;
+
+#define MAX 1000005
+
+int ans[MAX], count = 0;
+
+int solve(int X) {
+  count++;
+  if (ans[X] != 0) {
+    return ans[X];
+  }
+
+  int i, j, result = 10 * MAX, minResult = 10 * MAX;
+  if (X < 2) {
+    return MAX * 10;
+  }
+
+  result = solve(X - 7) + 1;
+  if (minResult > result) {
+    minResult = result;
+  }
+  result = solve(X - 5) + 1;
+  if (minResult > result) {
+    minResult = result;
+  }
+  result = solve(X - 3) + 1;
+  if (minResult > result) {
+    minResult = result;
+  }
+  result = solve(X - 2) + 1;
+  if (minResult > result) {
+    minResult = result;
+  }
+
+  ans[X] = minResult;
+  return ans[X];
+}
+
+int main() {
+  int T;
+  ans[2] = ans[3] = ans[5] = ans[7] = 1;
+  cin >> T;
+  while (T--) {
+    int X, minstep = MAX * 10;
+    cin >> X;
+    minstep = solve(X);
+
+    if (minstep == 10 * MAX)
+      minstep = -1;
+    cout << minstep << endl;
+  }
+}

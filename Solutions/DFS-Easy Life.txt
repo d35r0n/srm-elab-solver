@@ -1,0 +1,62 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long int
+
+vector<int> a[100001];
+bool visited[100001];
+float v, e;
+
+void dfs(ll k)
+{
+    visited[k] = true;
+    v++;
+
+    for (ll j = 0; j < a[k].size(); j++) {
+        e++;
+        if (visited[a[k][j]] == false)
+            dfs(a[k][j]);
+    }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    ll n, m;
+    float p, q, maxi = 0, ans = 0;
+    cin >> n >> m;
+    for (ll i = 0; i < m; i++) {
+        ll x, y;
+        cin >> x >> y;
+        a[x].push_back(y);
+        a[y].push_back(x);
+    }
+
+    for (ll i = 0; i <= n; i++)
+        visited[i] = false;
+
+    for (ll i = 1; i <= n; i++) {
+        v = 0, e = 0;
+        if (visited[i] == false) {
+            dfs(i);
+            e = e / 2;
+            ans = e / v;
+            if (ans >= maxi) {
+                maxi = ans;
+                p = e;
+                q = v;
+            }
+        }
+    }
+
+    maxi = p / q;
+
+    if (maxi > 1)
+        cout << ">1" << '\n';
+    else if (p == q)
+        cout << "1/1" << '\n';
+    else
+        cout << p << "/" << q << '\n';
+}

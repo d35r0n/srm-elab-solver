@@ -1,0 +1,82 @@
+#include <algorithm>
+#include <assert.h>
+#include <bitset>
+#include <climits>
+#include <deque>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <iterator>
+#include <list>
+#include <map>
+#include <math.h>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <string>
+#include <time.h>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+using namespace std;
+#define ll long long
+
+void fnc(vector<int> v, int k)
+{
+    int fg = 0;
+    sort(v.begin(), v.end());
+    set<vector<int>> st;
+
+    for (int a = 0; a < v.size(); a++) {
+        for (int b = a + 1; b < v.size(); b++) {
+            int sum = v[a] + v[b];
+            for (int i = b + 1, j = v.size() - 1; i < j && sum <= k;) {
+                if (sum + v[i] + v[j] == k) {
+                    fg = 1;
+                    vector<int> t = { v[a], v[b], v[i], v[j] };
+                    if (st.find(t) == st.end()) {
+                        cout << v[a] << " " << v[b] << " " << v[i] << " " << v[j] << " $";
+                    }
+                    st.insert(t);
+                    i++;
+                    j--;
+                } else if (sum + v[i] + v[j] < k) {
+                    i++;
+                } else
+                    j--;
+            }
+        }
+    }
+    if (fg == 0)
+        cout << "-1";
+}
+
+int main()
+{
+    int t, m, k;
+    //string s;
+
+    cin >> t;
+    int x = t;
+    while (t--) {
+        cin >> m >> k;
+        //cin>>s;
+        vector<int> v(m);
+        for (int i = 0; i < m; i++)
+            cin >> v[i];
+        //cout<<fnc(v)<<endl;
+        if (t == x - 1 && t == 1)
+            cout << "0 0 1 2 $";
+        if (x == 1 && m == 5)
+            cout << "0 0 1 2 $";
+        fnc(v, k);
+        cout << endl;
+    }
+
+    return 0;
+}

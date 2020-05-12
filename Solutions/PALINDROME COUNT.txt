@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<string> substring(string s) {
+  vector<string> subs;
+  for (int i = 0; i < s.size(); i++) {
+    for (int j = i + 1; j <= s.size(); j++)
+      subs.push_back(s.substr(i, j - i));
+  }
+  return subs;
+}
+
+bool ispalin(string &s) {
+  string t = s;
+  reverse(t.begin(), t.end());
+  return s == t;
+}
+
+int main() {
+  char ch[100000];
+  scanf("%s", ch);
+  int s = 0;
+  vector<string> v = substring(string(ch));
+  for (int i = 0; i < v.size(); i++) {
+    s += ispalin(v[i]);
+  }
+  cout << s << "\n";
+  return 0;
+}

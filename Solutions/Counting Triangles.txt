@@ -1,0 +1,21 @@
+#include <bits/stdc++.h>
+#include <iostream>
+#include <map>
+using namespace std;
+main()
+{
+    long long n, count = 0;
+    cin >> n;
+    array<long long, 3> val;
+    map<array<long long, 3>, long long> cnt;
+    while (n--) {
+        cin >> val[0] >> val[1] >> val[2];
+        sort(val.begin(), val.end());
+        cnt[val]++;
+    }
+    for (auto i = cnt.begin(); i != cnt.end(); ++i) {
+        if (i->second == 1)
+            count++;
+    }
+    cout << count << endl;
+}

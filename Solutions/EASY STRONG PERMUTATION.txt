@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
+
+int main()
+{
+    ll n;
+    cin >> n;
+    ll a[n], b[n], j = 0, k = 0, sum = 0;
+
+    for (ll i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    sort(a, a + n);
+
+    ll i;
+    for (i = 0; i < n - i - 1; ++i) {
+        b[j] = a[i];
+        ++j;
+        b[j] = a[n - i - 1];
+        ++j;
+    }
+
+    if (i == n - i - 1)
+        b[j] = a[i];
+    /*
+    for(int i=0;i<n;++i)
+    cout<<b[i]<<" ";*/
+
+    for (i = 0; i < n - 1; ++i) {
+        sum = sum + abs(b[i] - b[i + 1]);
+    }
+
+    sum += abs(b[0] - b[n - 1]);
+
+    cout << sum;
+}
