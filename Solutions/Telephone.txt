@@ -1,0 +1,59 @@
+#include <iostream>
+#include <string.h>
+using namespace std;
+struct record {
+  char name[10];
+  long phno;
+} record[20];
+int main() {
+  int f;
+  char s[10];
+  int res;
+  long a;
+  long q = 0;
+  cin >> f;
+  int k = 0;
+  int n = 0;
+  string d;
+  for (int i = 0; i < f; i++) {
+    cin >> record[i].name;
+    cin >> record[i].phno;
+  }
+  cin >> q;
+  for (int i = 0; i < f; i++) {
+    for (int j = 0; j < f; j++) {
+      res = strcmp(record[i].name, record[j].name);
+      if (res < 0) {
+        strcpy(s, record[i].name);
+        strcpy(record[i].name, record[j].name);
+        strcpy(record[j].name, s);
+        a = record[i].phno;
+        record[i].phno = record[j].phno;
+        record[j].phno = a;
+      }
+    }
+  }
+  cout << d << "\n";
+  cout << "Ordered List"
+       << "\n";
+  for (int i = 0; i < f; i++) {
+    cout << record[i].name << ' ';
+    cout << record[i].phno << "\n";
+  }
+  cout << d << "\n";
+  for (int i = 0; i < 10; i++) {
+    if (record[i].phno == q) {
+      k++;
+      n = i;
+    }
+  }
+  if (k > 0) {
+    cout << "Name Telephone Number";
+    cout << "\n";
+    cout << record[n].name << ' ' << record[n].phno;
+  } else {
+    cout << "Name Telephone Number";
+    cout << "\n";
+    cout << "The Entered Number is not in the Directory";
+  }
+}

@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+using namespace std;
+int min(int a, int b) {
+  if (a < b)
+    return a;
+  else
+    return b;
+}
+
+int func(int flag) {
+  if (flag == 0)
+    return 0;
+  if (flag < 10)
+    return INT_MIN;
+  if (flag % 12 == 0)
+    return 1 + func(flag - 12);
+  if (flag % 10 == 0)
+    return 1 + func(flag - 10);
+  return 1 + min(func(flag - 10), func(flag - 12));
+}
+int main() {
+  short t;
+  cin >> t;
+  while (t--) {
+    int n;
+    cin >> n;
+    if (func(n) < 0)
+      cout << "-1\n";
+    else
+      cout << func(n) << '\n';
+  }
+  return 0;
+}

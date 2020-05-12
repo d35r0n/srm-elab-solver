@@ -1,0 +1,37 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<vector<long long int>> v;
+
+long long int ans(int n, int *arr, int l) {
+  if (n == 0)
+    return 1;
+  if (n < 0)
+    return 0;
+  if (l <= 0)
+    return 0;
+  else {
+    if (v[n][l] == -1) {
+      v[n][l] = ans(n - arr[0], arr, l) + ans(n, arr + 1, l - 1);
+    }
+    return v[n][l];
+  }
+}
+int main() {
+  int N{0}, M{0};
+  cin >> N;
+  cin >> M;
+  int arr[50];
+  for (int m{0}; m < M; m++) {
+    cin >> arr[m];
+  }
+  for (int n{0}; n <= N; n++) {
+    vector<long long int> v1;
+    for (int m{0}; m < M + 1; m++) {
+      v1.push_back(-1);
+    }
+    v.push_back(v1);
+  }
+  cout << ans(N, arr, M) << endl;
+  return 0;
+}

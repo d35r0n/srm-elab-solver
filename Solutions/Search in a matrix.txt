@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+int main() {
+  int t, r, c, a[100][100], i, j, search, count = 0;
+  cin >> t;
+  while (t--) {
+    cin >> r;
+    cin >> c;
+    for (i = 0; i < r; ++i)
+      for (j = 0; j < c; ++j) {
+        cin >> a[i][j];
+      }
+    cin >> search;
+    for (i = 0; i < r; ++i)
+      for (j = 0; j < c; ++j) {
+        if (a[i][j] == search) {
+          count++;
+        }
+      }
+    if (count > 0) {
+      cout << "1" << endl;
+    } else {
+      cout << "0" << endl;
+    }
+  }
+  return 0;
+}

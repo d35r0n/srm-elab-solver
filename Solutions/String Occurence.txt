@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <string.h>
+
+// returns count of non-overlapping occurrences of 'sub' in 'str'
+int countSubstring(const char* str, const char* sub)
+{
+    int length = strlen(sub);
+    if (length == 0)
+        return 0;
+    int count = 0;
+    for (str = strstr(str, sub); str; str = strstr(str + length, sub))
+        ++count;
+    return count;
+}
+
+int main()
+{
+    char a[100], b[100];
+    scanf("%s %s", a, b);
+    printf("%d\n", countSubstring(b, a));
+
+    return 0;
+}

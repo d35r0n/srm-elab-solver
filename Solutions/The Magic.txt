@@ -1,0 +1,27 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+  int T;
+  cin >> T;
+  int i, n, s, d, r;
+  for (i = 0; i < T; i++) {
+
+    int ts = 0;
+    cin >> n;
+    r = n;
+    d = 0;
+    while (ts != n) {
+      d = d + 1;
+      s = 1;
+      while (s <= r)
+        s = s * 2;
+      s = s / 2;
+      r = r - s;
+      ts = ts + s;
+    }
+
+    cout << d << endl;
+  }
+}

@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+unsigned int cntSet(unsigned int n) {
+  unsigned int cnt = 0;
+  while (n) {
+    cnt += (n & 1);
+    n >>= 1;
+  }
+  return cnt;
+}
+int main() {
+  unsigned int n;
+  unsigned int i, tt = 0;
+  cin >> n;
+  for (i = 1; i <= n; i++)
+    tt += cntSet(i);
+  cout << "Total set bit count is " << tt;
+  return 0;
+}

@@ -1,0 +1,119 @@
+#include <algorithm>
+#include <iomanip>
+#include <iostream>
+#include <map>
+#include <math.h>
+#include <queue>
+#include <set>
+#include <stack>
+#include <stdlib.h>
+#include <string.h>
+#include <utility>
+#include <vector>
+
+using namespace std;
+
+#define pb push_back
+#define pp pop_back
+#define nl cout << "\n"
+#define MIN(con) (*min_element(ALL(con)))
+#define MAX(con) (*max_element(ALL(con)))
+#define NX(cont) next_permutation(ALL(cont))
+#define PX(cont) prev_permutation(ALL(cont))
+#define prec(n) cout << fixed << setprecision(n)
+#define PI 3.14159265358979323846264338327951
+#define all(c) c.begin(), c.end()
+#define rep(i, a, b) for (ll i = a; i < b; i++)
+#define sp cout << " "
+#define mod 1000000007 // 9
+#define ifalse ios_base::sync_with_stdio(false), cin.tie(NULL)
+
+using ll = long long;
+using ld = long double;
+
+template <typename T> T GCD(T a, T b) {
+  ll t;
+  while (a) {
+    t = a;
+    a = b % a;
+    b = t;
+  }
+  return b;
+}
+template <typename T> T LCM(T a, T b) { return (a * b) / GCD(a, b); }
+template <typename T> string toString(T a) {
+  return to_string(a);
+} // Convert int to string
+template <typename T> void toInt(string s, T &x) {
+  stringstream str(s);
+  str >> x;
+} // Convert string to int
+
+ll add(ll x, ll y) {
+  x += y;
+  if (x >= mod)
+    x -= mod;
+  return x;
+}
+ll sub(ll x, ll y) {
+  x -= y;
+  if (x < 0)
+    x += mod;
+  return x;
+}
+ll mul(ll x, ll y) { return ((x % mod) * (y % mod)) % mod; }
+
+ll powr(ll a, ll b) {
+  ll x = 1LL;
+  while (b) {
+    if (b & 1)
+      x = mul(x, a);
+    a = mul(a, a);
+    b >>= 1;
+  }
+  return x;
+}
+
+ll inv(ll a) { return powr(a, mod - 2); }
+const int inv2 = (mod + 1) >> 1;
+const ll INF = 1e18;
+const int inf = 1e9;
+
+bool check(ll n) {
+  if (n == 1)
+    return 0;
+  if (n == 2 or n == 3)
+    return 1;
+  if (n % 2 == 0 or n % 3 == 0)
+    return 0;
+  for (ll i = 5; i * i <= n; i += 6)
+    if (n % i == 0 or n % (i + 2) == 0)
+      return 0;
+  return 1;
+}
+
+/*********************************************START**************************************************************/
+
+int main() {
+  ifalse;
+  int t;
+  cin >> t;
+  while (t--) {
+    int n;
+    cin >> n;
+    vector<pair<ll, pair<ll, ll>>> v;
+    rep(i, 0, n) {
+      ll x, y;
+      cin >> x >> y;
+      v.pb({x + y, {x, y}});
+    }
+    sort(all(v));
+    reverse(all(v));
+    ll ans = v[0].second.first + v[1].second.first;
+    for (int i = 2; i < n; i++) {
+      ans -= v[i].second.second;
+    }
+    cout << ans, nl;
+  }
+  return 0;
+}

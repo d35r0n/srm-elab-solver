@@ -1,0 +1,36 @@
+#include <stdio.h>
+int main()
+{
+    int t;
+    scanf("%d", &t);
+    while (t--) {
+        int i, j, k, l = 0, n, m, a[1000], s = 0, s1 = 0, min = 0, max = 0;
+        scanf("%d %d", &n, &k);
+        for (i = 0; i < n; i++)
+            scanf("%d", &a[i]);
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n - i - 1; j++) {
+                int tm;
+                if (a[j] > a[j + 1]) {
+                    tm = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = tm;
+                }
+            }
+        }
+        while (s < n) {
+            min = min + a[l];
+            l++;
+            s = s + k + 1;
+        }
+        j = n - 1;
+        while (s1 < n) {
+            max = max + a[j];
+            j--;
+            s1 = s1 + k + 1;
+        }
+        printf("%d ", min);
+        printf("%d\n", max);
+    }
+    return 0;
+}

@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+
+#define FIO                                                                    \
+  ios_base::sync_with_stdio(0);                                                \
+  cin.tie(0);
+#define T()                                                                    \
+  int tt;                                                                      \
+  cin >> tt;                                                                   \
+  rep1(qq, 1, tt)
+#define rep(i, start, lim) for (int i = start; i < lim; i++)
+#define rep1(i, start, lim) for (int i = start; i <= lim; ++i)
+#define repd(i, start, lim) for (int i = start; i >= lim; i--)
+#define mp make_pair
+#define pb push_back
+#define ff first
+#define ss second
+#define br cout << "\n"
+#define MOD (1000000007LL)
+#define all(v) (v).begin(), (v).end()
+#define rall(v) (v).rbegin(), (v).rend()
+#define eps (1e-6)
+#define what_is(x) cerr << #x << " is " << x << "\n";
+#define int long long int
+#define infll 9e18
+#define inf 1e12
+
+#define lnode (2 * node + 1)
+#define rnode (2 * node + 2)
+
+using namespace std;
+
+typedef pair<int, int> pii;
+
+const int N = 55;
+
+int n;
+int a[51], dp[51][1 << 16];
+int primes[15] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47};
+
+int getMask(int x) {
+  int mask = 0;
+  for (int i = 0; i < 15; ++i) {
+    if (x % primes[i] == 0)
+      mask |= (1 << i);
+  }
+  return mask;
+}
+
+int32_t main() {
+
+  FIO
+      // cout << fixed << setprecision(10);
+      // freopen("input.txt", "r", stdin);
+      // freopen("output.txt", "w", stdout);
+
+      int tt;
+  cin >> tt;
+  while (tt--) {
+    memset(a, 0, sizeof a);
+    cin >> n;
+    for (int i = 0; i < n; ++i)
+      cin >> a[i];
+    memset(dp, 0, sizeof dp);
+    dp[0][getMask(a[0])] = 1;
+    for (int i = 1; i < n; ++i) {
+      int curMask = getMask(a[i]);
+      dp[i][curMask] = 1;
+      for (int prevMask = 0; prevMask < (1 << 15); ++prevMask) {
+        dp[i][prevMask] = max(dp[i][prevMask], dp[i - 1][prevMask]);
+        if ((prevMask & curMask) != 0) {
+          continue;
+        }
+        int best = dp[i - 1][prevMask] + 1;
+        dp[i][prevMask | curMask] = max(dp[i][prevMask | curMask], best);
+      }
+    }
+    int res = 0;
+    for (int mask = 0; mask < (1 << 15); ++mask) {
+      res = max(res, dp[n - 1][mask]);
+    }
+    cout << res << '\n';
+  }
+
+  return 0;
+}

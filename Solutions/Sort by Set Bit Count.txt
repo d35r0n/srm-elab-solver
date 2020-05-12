@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+int no_count(int n) {
+  int count = 0;
+  while (n > 0) {
+    if (n % 2 == 1)
+      count++;
+    n = n / 2;
+  }
+  return count;
+}
+int main() {
+  int t, n, a[100], b[100], i, j, c[100];
+  cin >> t;
+  while (t--) {
+    cin >> n;
+    for (i = 0; i < n; i++) {
+      cin >> a[i];
+      c[i] = i;
+    }
+    for (i = 0; i < n; i++) {
+      b[i] = no_count(a[i]);
+    }
+    for (i = 0; i < n; i++) {
+      for (j = i; j < n; j++) {
+        if (b[i] == b[j]) {
+          if (c[i] > c[j]) {
+            int temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+            temp = b[i];
+            b[i] = b[j];
+            b[j] = temp;
+            temp = c[i];
+            c[i] = c[j];
+            c[j] = temp;
+          }
+        } else if (b[i] < b[j]) {
+          int temp = a[i];
+          a[i] = a[j];
+          a[j] = temp;
+          temp = b[i];
+          b[i] = b[j];
+          b[j] = temp;
+          temp = c[i];
+          c[i] = c[j];
+          c[j] = temp;
+        }
+      }
+    }
+    for (i = 0; i < n; i++) {
+      cout << a[i] << " ";
+    }
+    cout << "\n";
+  }
+  return 0;
+}

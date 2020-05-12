@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+#define fori1(i, n) for (int i = 1; i <= n; i++)
+#define in(n)                                                                  \
+  int n;                                                                       \
+  cin >> n;
+using namespace std;
+void lsort(vector<int> a, int n) {
+  vector<int> b = a;
+  fori1(i, n) b[i] *= 2;
+  fori1(i, n) {
+    a[i] += a[i - 1];
+    b[n - i] += b[n - i + 1];
+  }
+  int ctr = 1;
+  while (a[ctr] < b[ctr]) {
+    ctr++;
+  }
+  ctr--;
+  if (a[ctr - 1] > b[ctr + 1])
+    ctr--;
+  cout << ctr << " " << n - ctr << endl;
+}
+int main() {
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  in(t);
+  while (t--) {
+    in(n);
+    vector<int> a(n + 1);
+    a[0] = 0;
+    fori1(i, n) cin >> a[i];
+    lsort(a, n);
+  }
+  return 0;
+}

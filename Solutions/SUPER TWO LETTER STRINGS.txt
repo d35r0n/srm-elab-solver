@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+long long func(int n, int p, int si, int counter, long long* dp)
+{
+
+    if (dp[si * (p + 1) + counter] != -1)
+        return dp[si * (p + 1) + counter];
+    long long val = 0;
+    val = (val + func(n, p, si + 1, counter + 1, dp)) % 1000000007;
+    val = (val + func(n, p, si + 1, 0, dp)) % 1000000007;
+    dp[si * (p + 1) + counter] = val;
+    return dp[si * (p + 1) + counter];
+}
+
+int main()
+{
+    int t;
+    scanf("%d", &t);
+    while (t-- > 0) {
+        int n, p;
+        scanf("%d %d", &n, &p);
+        long long* dp = new long long[(n + 1) * (p + 1)];
+        for (int i = 0; i <= n; i++)
+            for (int j = 0; j <= p; j++)
+                dp[i * (p + 1) + j] = -1;
+        for (int i = 0; i <= n; i++)
+            dp[i * (p + 1) + p] = 0;
+        for (int j = 0; j < p; j++)
+            dp[n * (p + 1) + j] = 1;
+        long long val = func(n, p, 1, 0, dp) % 1000000007;
+        printf("%lld\n", val);
+    }
+    return 0;
+}

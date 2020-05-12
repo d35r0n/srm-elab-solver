@@ -1,0 +1,38 @@
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int col = -1;
+int comp_col(int, int, int);
+int main() {
+  int tcases;
+  scanf("%d", &tcases);
+  int n, i, total = 0;
+  int p[1000], o[1000], y[1000];
+  while (tcases--) {
+    total = 0;
+    col = -1;
+    scanf("%d", &n);
+    for (i = 0; i < n; i++) {
+      cin >> p[i] >> o[i] >> y[i];
+      total = total + comp_col(p[i], o[i], y[i]);
+    }
+    printf("%d", total);
+  }
+  return 0;
+}
+int comp_col(int a, int b, int c) {
+  int temp = 9999;
+  if (col != 0 && temp > a) {
+    temp = a;
+    col = 0;
+  }
+  if (col != 1 && temp > b) {
+    temp = b;
+    col = 1;
+  }
+  if (col != 2 && temp > c) {
+    temp = c;
+    col = 2;
+  }
+  return temp;
+}

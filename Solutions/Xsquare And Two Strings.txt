@@ -1,0 +1,30 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+  string s1, s2;
+  int T, i, j;
+  cin >> T;
+  while (T--) {
+    int a[26] = {0}, b[26] = {0};
+    cin >> s1;
+    cin >> s2;
+    for (i = 0; i < s1.length(); i++) {
+      a[s1[i] - 97]++;
+    }
+    for (i = 0; i < s2.length(); i++) {
+      b[s2[i] - 97]++;
+    }
+    for (i = 0; i < 26; i++) {
+      if (a[i] > 0 && b[i] > 0) {
+        cout << "Yes\n";
+        break;
+      }
+    }
+    if (i == 26)
+      cout << "No\n";
+  }
+
+  return 0;
+}

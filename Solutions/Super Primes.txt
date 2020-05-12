@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+static constexpr int kN = 10000000;
+static constexpr int kSqrt = 3162;
+
+int bs(const vector<int> &primes, int x) {
+  int lo = 0, hi = primes.size() - 1;
+  while (lo <= hi) {
+    int mi = (lo + hi) / 2;
+    int mx = primes[mi];
+    if (mx == x) {
+      return mi;
+    }
+    if (mx < x) {
+      lo = mi + 1;
+    } else {
+      hi = mi - 1;
+    }
+  }
+  return -(lo + 1);
+}
+
+int count(int n, const vector<int> &primes) {
+  int pos = bs(primes, n);
+  return (pos < 0) ? (-pos - 1) : pos + 1;
+}
+
+int main() {
+  vector<bool> sieve(kN);
+  for (int i = 2; i < kSqrt; i++) {
+    if (sieve[i]) {
+      continue;
+    }
+    for (int j = 2 * i; j < kN; j += i) {
+      sieve[j] = true;
+    }
+  }
+  vector<int> primes;
+  for (int i = 2; i < kN; i++) {
+    // WTF ?!
+    if (!sieve[i] && !sieve[i + 2]) {
+      primes.push_back(i + 2);
+    }
+  }
+
+  int t;
+  cin >> t;
+  while (t-- > 0) {
+    int n;
+    cin >> n;
+    cout << count(n, primes) << '\n';
+  }
+  return 0;
+}

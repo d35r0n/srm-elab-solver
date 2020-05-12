@@ -1,0 +1,27 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+  int n;
+  cin >> n;
+
+  vector<pair<int, pair<string, int>>> v;
+
+  for (int i = 0; i < n; i++) {
+    string s;
+    int p1, p2;
+    cin >> s >> p1 >> p2;
+
+    v.push_back(make_pair(-p2, make_pair(s, p1)));
+  }
+
+  sort(v.begin(), v.end());
+
+  for (int i = 0; i < n; i++) {
+    cout << v[i].second.first << " " << v[i].second.second << " " << -v[i].first
+         << endl;
+  }
+}
